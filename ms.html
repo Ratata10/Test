@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messenger Tabel</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #dddddd;
+        }
+
+        td span {
+            cursor: pointer;
+            color: blue;
+        }
+
+        td span:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Messenger Tabel</h2>
+
+<table>
+    <tr>
+        <th>Emne</th>
+        <th>Tekst</th>
+    </tr>
+    <tr>
+        <td>Til Anders1</td>
+        <td><span onclick="kopierOgÅben('699667898', 'Dette er tekst 1')">Dette er tekst 1</span></td>
+    </tr>
+    <tr>
+        <td>Til Anders2</td>
+        <td><span onclick="kopierOgÅben('123456789', 'Dette er tekst 2')">Dette er tekst 2</span></td>
+    </tr>
+</table>
+
+<script>
+    function kopierOgÅben(userId, text) {
+        // Kopier tekst til klipboard
+        navigator.clipboard.writeText(text).then(function() {
+            console.log('Tekst kopieret til klipboard: ' + text);
+        }, function(err) {
+            console.error('Kopiering mislykkedes', err);
+        });
+
+        // Sammensæt Messenger URL og åbn linket
+        const messengerLink = `https://www.messenger.com/t/${userId}`;
+        window.open(messengerLink, '_blank');
+    }
+</script>
+
+</body>
+</html>
