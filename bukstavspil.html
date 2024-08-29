@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stort og Lille Bogstav Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #letterDisplay {
+            font-size: 100px;
+            margin-bottom: 20px;
+        }
+        #inputField {
+            font-size: 40px;
+            padding: 10px;
+            width: 50px;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        .help-text {
+            color: grey;
+            font-size: 20px;
+        }
+        #score {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stort og Lille Bogstav Test</h1>
+    <label for="caseSelector">Vælg tilstand:</label>
+    <select id="caseSelector">
+        <option value="uppercase">Store bogstaver</option>
+        <option value="lowercase">Små bogstaver</option>
+    </select>
+    <br>
+    <label for="helpSelector">Hjulpetekst:</label>
+    <select id="helpSelector">
+        <option value="show">Vis</option>
+        <option value="hide">Skjul</option>
+    </select>
+    <div id="letterDisplay">A</div>
+    <input type="text" id="inputField" maxlength="1" autofocus>
+    <div id="message" class="hidden">Rigtigt!</div>
+    <div id="helpText" class="hidden"></div>
+    <div id="score">
+        Rigtige: <span id="correctCount">0</span> |
+        Forkerte: <span id="incorrectCount">0</span>
+    </div>
+
+    <script>
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const letterDisplay = document.getElementById('letterDisplay');
+        const inputField = document.getElementById('inputField');
+        const message = document.getElementById('message');
+        const helpText = document.getElementById('helpText');
+        const caseSelector = document.getElementById('caseSelector');
+        const helpSelector = document.getElementById('helpSelector');
+        const correctCountElem = document.getElementById('correctCount');
+        const incorrectCountElem = document.getElementById('incorrectCount');
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+
+        function getRandomLetter() {
+            const randomIndex = Math.floor(Math.random() * letters.length);
+            return letters[randomIndex];
+        }
+
+        function updateLetterDisplay() {
+            const selectedCase = caseSelector.value;
+            const letter = getRandomLetter();
+            if (selectedCase === 'uppercase') {
+                letterDisplay.textContent = letter; // Vis stort bogstav
+                inputField.placeholder = helpSelector.value === 'show' ? letter.toLowerCase() : ''; // Hjælpetekst som lille bogstav
+            } else {
+                letterDisplay.textContent = letter.toLowerCase(); // Vis lille bogstav
+                inputField.placeholder = helpSelector.value === 'show' ? letter : ''; // Hjælpetekst som stort bogstav
+            }
+        }
+
+        function updateScore(isCorrect) {
+            if (isCorrect) {
+                correctCount++;
+                correctCountElem.textContent = correctCount;
+            } else {
+                incorrectCount++;
+                incorrectCountElem.textContent = incorrectCount;
+            }
+        }
+
+        function displayNewLetter() {
+            updateLetterDisplay();
+            inputField.value = '';
+            message.classList.add('hidden');
+        }
+
+        function checkInput() {
+            const displayedLetter = letterDisplay.textContent;
+            const inputLetter = inputField.value;
+
+            const selectedCase = caseSelector.value;
+            const expectedLetter = selectedCase === 'uppercase'
+                ? displayedLetter.toLowerCase()
+                : displayedLetter.toUpperCase();
+
+            const isCorrect = inputLetter === expectedLetter;
+            updateScore(isCorrect);
+
+            if (isCorrect) {
+                message.classList.remove('hidden');
+                setTimeout(displayNewLetter, 1000);
+            }
+        }
+
+        caseSelector.addEventListener('change', displayNewLetter);
+        helpSelector.addEventListener('change', updateLetterDisplay);
+        inputField.addEventListener('input', checkInput);
+
+        // Display the first letter when the page loads
+        displayNewLetter();
+    </script>
+</body>
+</html>
