@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopier Koder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <button onclick="copyNextCode(this)">Kopier næste kode</button>
+
+    <div>
+        <textarea id="codeList" placeholder="Indsæt din liste med koder her..."></textarea>
+    </div>
+
+    <script>
+        let index = 0;
+        let codes = [];
+
+        function copyNextCode(button) {
+            // Hvis listen med koder er tom, indlæses koderne fra tekstområdet
+            if (codes.length === 0) {
+                const codeText = document.getElementById("codeList").value.trim();
+                if (codeText) {
+                    codes = codeText.split("\n").map(code => code.trim()).filter(code => code.length > 0);
+                } else {
+                    button.innerText = "Ingen koder i listen";
+                    return;
+                }
+            }
+
+            // Kopier næste kode
+            if (index < codes.length) {
+                const code = codes[index];
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Kopieret: " + code;
+                }).catch(err => {
+                    button.innerText = "Fejl: Kunne ikke kopiere";
+                });
+                index++;
+            } else {
+                button.innerText = "Ingen flere koder";
+            }
+        }
+    </script>
+
+</body>
+</html>
