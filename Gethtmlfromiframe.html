@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Load HTML</title>
+    <title>Load HTML3</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,13 +14,6 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-        }
-        iframe {
-            width: 80%;
-            height: 300px;
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            display: none;
         }
         #htmlContent {
             width: 80%;
@@ -38,84 +31,24 @@
     <button id="loadButton">Load HTML</button>
 
     <div>
-        <iframe id="iframeContent" src="" frameborder="0"></iframe>
-        <div id="htmlContent"></div>
+        <div id="htmlContent">HTML content will be loaded here...</div>
     </div>
 
     <script>
         document.getElementById('loadButton').addEventListener('click', function() {
-            const iframe = document.getElementById('iframeContent');
-            iframe.src = 'https://www.fcswap.com/game/pokemon-go/index.php?page=1';
-            iframe.style.display = 'block'; // Ensure the iframe is visible
-            iframe.onload = function() {
-                console.log('Iframe loaded');
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                const htmlContent = iframeDoc.body.innerHTML;
-                console.log('HTML Content:', htmlContent);
-                document.getElementById('htmlContent').innerText = htmlContent;
-                iframe.style.display = 'none';
-            };
-            iframe.onerror = function() {
-                console.error('Failed to load iframe content');
-            };
-        });
-    </script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Load HTML1</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 50px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        iframe {
-            width: 80%;
-            height: 300px;
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            display: none;
-        }
-        #htmlContent {
-            width: 80%;
-            height: 300px;
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-    </style>
-</head>
-<body>
-
-    <button id="loadButton">Load HTML</button>
-
-    <div>
-        <iframe id="iframeContent" src="" frameborder="0"></iframe>
-        <div id="htmlContent"></div>
-    </div>
-
-    <script>
-        document.getElementById('loadButton').addEventListener('click', function() {
-            const iframe = document.getElementById('iframeContent');
-            iframe.src = 'https://www.fcswap.com/game/pokemon-go/index.php?page=1';
-            iframe.onload = function() {
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                const htmlContent = iframeDoc.body.innerHTML;
-                document.getElementById('htmlContent').innerText = htmlContent;
-                iframe.style.display = 'none';
-            };
+            fetch('https://cors-anywhere.herokuapp.com/https://www.fcswap.com/game/pokemon-go/index.php?page=1')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('htmlContent').innerText = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
         });
     </script>
 
