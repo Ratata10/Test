@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load HTML</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        textarea {
+            width: 80%;
+            height: 300px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="loadButton">Load HTML</button>
+
+    <div>
+        <textarea id="htmlContent" placeholder="HTML content will be loaded here..."></textarea>
+    </div>
+
+    <script>
+        document.getElementById('loadButton').addEventListener('click', function() {
+            fetch('https://www.fcswap.com/game/pokemon-go/index.php?page=1') // Replace with the URL of the site you want to load
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('htmlContent').value = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        });
+    </script>
+
+</body>
+</html>
