@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Load HTML</title>
+    <title>Load HTML1</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,6 +20,16 @@
             height: 300px;
             margin-top: 20px;
             border: 1px solid #ccc;
+            display: none;
+        }
+        #htmlContent {
+            width: 80%;
+            height: 300px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -28,12 +38,20 @@
     <button id="loadButton">Load HTML</button>
 
     <div>
-        <iframe id="htmlContent" src="" frameborder="0"></iframe>
+        <iframe id="iframeContent" src="" frameborder="0"></iframe>
+        <div id="htmlContent"></div>
     </div>
 
     <script>
         document.getElementById('loadButton').addEventListener('click', function() {
-            document.getElementById('htmlContent').src = 'https://www.fcswap.com/game/pokemon-go/index.php?page=1';
+            const iframe = document.getElementById('iframeContent');
+            iframe.src = 'https://www.fcswap.com/game/pokemon-go/index.php?page=1';
+            iframe.onload = function() {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const htmlContent = iframeDoc.body.innerHTML;
+                document.getElementById('htmlContent').innerText = htmlContent;
+                iframe.style.display = 'none';
+            };
         });
     </script>
 
