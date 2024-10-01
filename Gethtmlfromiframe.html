@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load HTML</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        iframe {
+            width: 80%;
+            height: 300px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="loadButton">Load HTML</button>
+
+    <div>
+        <iframe id="htmlContent" src="" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        document.getElementById('loadButton').addEventListener('click', function() {
+            document.getElementById('htmlContent').src = 'https://www.fcswap.com/game/pokemon-go/index.php?page=1';
+        });
+    </script>
+
+</body>
+</html>
