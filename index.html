@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kopier Koder2</title>
+    <title>Kopier Koder4</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,19 +64,19 @@
         }
 
         function processPaste(event) {
-    const clipboardData = event.clipboardData || window.clipboardData;
-    const pastedData = clipboardData.getData('Text');
+            const clipboardData = event.clipboardData || window.clipboardData;
+            const pastedData = clipboardData.getData('Text');
 
-    const regex = /\b\d{12}\b/g;
-    let match;
-    while ((match = regex.exec(pastedData)) !== null) {
-        codes.add(match[0]);
-    }
+            const regex = /\b\d{12}\b/g;
+            let match;
+            while ((match = regex.exec(pastedData)) !== null) {
+                codes.add(match[0]);
+            }
 
-    console.log("Codes:", Array.from(codes)); // Add this line for debugging
-    displayCodes();
-    updateCounter();
-}
+            console.log("Codes:", Array.from(codes)); // Add this line for debugging
+            displayCodes();
+            updateCounter();
+        }
 
         function displayCodes() {
             const textarea = document.getElementById("codeList");
