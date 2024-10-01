@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kopier Koder5</title>
+    <title>Kopier Koder6</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -81,7 +81,8 @@
 
         function displayCodes() {
             const textarea = document.getElementById("codeList");
-            textarea.value = Array.from(codes).join('\n');
+            let newText = Array.from(codes).join('\n');
+            textarea.value = newText;
         }
     </script>
 
