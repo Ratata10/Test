@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kopier Koder7</title>
+    <title>Kopier Koder6</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,6 +64,8 @@
         }
 
         function processPaste(event) {
+            event.preventDefault(); // Prevent the default paste behavior
+
             const clipboardData = event.clipboardData || window.clipboardData;
             const pastedData = clipboardData.getData('Text');
 
@@ -82,7 +84,6 @@
         function displayCodes() {
             const textarea = document.getElementById("codeList");
             textarea.value = Array.from(codes).join('\n');
-            textarea.value = "xxx";
         }
     </script>
 
