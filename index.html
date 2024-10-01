@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kopier Koder6</title>
+    <title>Kopier Koder8</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,6 +51,8 @@
                 const code = codeArray[index];
                 navigator.clipboard.writeText(code).then(() => {
                     button.innerText = "Kopieret: " + code;
+                    codes.delete(code); // Remove the copied code from the set
+                    displayCodes(); // Refresh the displayed list
                 }).catch(err => {
                     button.innerText = "Fejl: Kunne ikke kopiere";
                 });
