@@ -64,18 +64,19 @@
         }
 
         function processPaste(event) {
-            const clipboardData = event.clipboardData || window.clipboardData;
-            const pastedData = clipboardData.getData('Text');
+    const clipboardData = event.clipboardData || window.clipboardData;
+    const pastedData = clipboardData.getData('Text');
 
-            const regex = /\b\d{12}\b/g;
-            let match;
-            while ((match = regex.exec(pastedData)) !== null) {
-                codes.add(match[0]);
-            }
+    const regex = /\b\d{12}\b/g;
+    let match;
+    while ((match = regex.exec(pastedData)) !== null) {
+        codes.add(match[0]);
+    }
 
-            displayCodes();
-            updateCounter();
-        }
+    console.log("Codes:", Array.from(codes)); // Add this line for debugging
+    displayCodes();
+    updateCounter();
+}
 
         function displayCodes() {
             const textarea = document.getElementById("codeList");
