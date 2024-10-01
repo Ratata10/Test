@@ -21,45 +21,62 @@
             margin-top: 20px;
             font-size: 14px;
         }
+        #counter {
+            margin-top: 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
 
-    
-
-    <button onclick="copyNextCode(this)">Kopier næste kode</button>
+    <button id="copyButton" onclick="copyNextCode(this)">Kopier næste kode</button>
 
     <div>
-        <textarea id="codeList" placeholder="Indsæt din liste med koder her..."></textarea>
+        <textarea id="codeList" placeholder="Indsæt din tekst her..."></textarea>
     </div>
+    <div id="counter">0 / 0</div>
 
     <script>
         let index = 0;
-        let codes = [];
+        let codes = new Set();
+
+        function updateCounter() {
+            const counter = document.getElementById("counter");
+            counter.innerText = `${index} / ${codes.size}`;
+        }
 
         function copyNextCode(button) {
             // Hvis listen med koder er tom, indlæses koderne fra tekstområdet
-            if (codes.length === 0) {
+            if (codes.size === 0) {
                 const codeText = document.getElementById("codeList").value.trim();
                 if (codeText) {
-                    codes = codeText.split("\n").map(code => code.trim()).filter(code => code.length > 0);
+                    const regex = /\b\d{12}\b/g;
+                    let match;
+                    while ((match = regex.exec(codeText)) !== null) {
+                        codes.add(match[0]);
+                    }
                 } else {
                     button.innerText = "Ingen koder i listen";
                     return;
                 }
+                updateCounter();
             }
 
             // Kopier næste kode
-            if (index < codes.length) {
-                const code = codes[index];
+            const codeArray = Array.from(codes);
+            if (index < codeArray.length) {
+                const code = codeArray[index];
                 navigator.clipboard.writeText(code).then(() => {
                     button.innerText = "Kopieret: " + code;
                 }).catch(err => {
                     button.innerText = "Fejl: Kunne ikke kopiere";
                 });
                 index++;
+                updateCounter();
             } else {
                 button.innerText = "Ingen flere koder";
+                document.body.style.backgroundColor = "red";
+                button.style.backgroundColor = "red";
             }
         }
     </script>
