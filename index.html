@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kopier Koder4</title>
+    <title>Kopier Koder5</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,6 +67,7 @@
             const clipboardData = event.clipboardData || window.clipboardData;
             const pastedData = clipboardData.getData('Text');
 
+            codes.clear(); // Clear the existing codes
             const regex = /\b\d{12}\b/g;
             let match;
             while ((match = regex.exec(pastedData)) !== null) {
