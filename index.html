@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kopier Koder8</title>
+    <title>Kopier Koder9</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,6 +29,7 @@
 </head>
 <body>
 
+    <button id="loadButton">Load HTML</button>
     <button id="copyButton" onclick="copyNextCode(this)">Kopier næste kode</button>
 
     <div>
@@ -87,6 +88,22 @@
             const textarea = document.getElementById("codeList");
             textarea.value = Array.from(codes).join('\n');
         }
+
+        document.getElementById('loadButton').addEventListener('click', function() {
+            fetch('https://cors-anywhere.herokuapp.com/https://www.fcswap.com/game/pokemon-go/index.php?page=1')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('codeList').value = data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        });
     </script>
 
 </body>
